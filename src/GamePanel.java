@@ -84,7 +84,9 @@ public class GamePanel extends JPanel {
         }
 
         g.setColor(Color.RED);
-        g.fillRect(0,getLowerRightCorner().y,getLowerRightCorner().x,getHeight()-getLowerRightCorner().y);
+        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
+        g.setColor(Color.BLACK);
+        g.drawRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
     }
 
     public void tick(long tnum){
