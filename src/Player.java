@@ -15,6 +15,8 @@ public class Player{
         dir = Direction.NONE;
         occupies = new LinkedList<Pos>();
         occupies.add(pStart);
+
+        System.out.println("new Player at "+pStart);
     }
     public void paint(Graphics g){
         g.setColor(playerConfig.color);
@@ -22,6 +24,9 @@ public class Player{
             g.fillRect((int)Math.round(pos.x*viewState.scale),(int)Math.round(pos.y*viewState.scale),
                     (int)Math.round(viewState.scale),(int)Math.round(viewState.scale));
         }
+
+        g.setColor(Color.BLACK);
+        g.fillOval((int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
     }
     public void mUP(){
         dir = Direction.UP;

@@ -16,17 +16,8 @@ public class GamePanel extends JPanel {
         apples = new LinkedList<Pos>();
         viewState = new ViewState(50d);
 
-        List<Pos> startingPositions = new LinkedList<Pos>();
         for(PlayerConfig pc: pPlayers){
-            Pos newPos;
-            do {
-                newPos = new Pos((int) Math.round(Math.random() * 10), (int) Math.round(Math.random() * 10));
-            }while(startingPositions.contains(newPos));
-            startingPositions.add(newPos);
-        }
-
-        for(PlayerConfig pc: pPlayers){
-            players.add(new Player(pc,viewState,startingPositions.removeFirst()));
+            players.add(new Player(pc,viewState,new Pos(0,-1)));
         }
 
         pressedButtons = new HashSet<Integer>();
@@ -35,6 +26,10 @@ public class GamePanel extends JPanel {
 
     public void start(){
         System.out.println(new Pos(0,0)+" to "+ getLowerRightCorner());
+        for(Player p: players){
+            p.occupies.clear();
+            p.occupies.add(getFreeSpot());
+        }
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -109,7 +104,9 @@ public class GamePanel extends JPanel {
                 pl.mRIGHT();
             }
         }
-
+        if(apples.size()<3&&tnum%2000==0){
+            apples.add(getFreeSpot());
+        }
         if(tnum%500==0){
             for (Player pl : players){
                 Pos offset = new Pos(0,0);
@@ -163,6 +160,24 @@ public class GamePanel extends JPanel {
     }
 
     private Pos getFreeSpot(){
-        return new Pos(0,0);
+        Pos ret = new Pos(-1,-1);
+
+        int attempts = 0;
+        do{
+            //System.out.println("oldcord "+ ret.x+" "+ret.y);
+            ret.x = (int)Math.round(Math.random()*getLowerRightCorner().x);
+            ret.y = (int)Math.round(Math.random()*getLowerRightCorner().y);
+
+            if(attempts>1000){
+                ret.x = 0;
+                ret.y = -1;
+                System.err.println("Couldn't find free spot in "+attempts+" attempts");
+                break;
+            }
+            attempts++;
+        }while(!canBeMovedTo(ret)||apples.contains(ret));
+
+
+        return ret;
     }
 }
