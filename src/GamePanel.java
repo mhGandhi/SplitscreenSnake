@@ -11,12 +11,14 @@ public class GamePanel extends JPanel {
     ViewState viewState;
     Set<Integer> pressedButtons;
     int gameStepDelay;
+    long tickcounter;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
         apples = new LinkedList<Pos>();
         viewState = new ViewState(50d);
         gameStepDelay = 500;
+        tickcounter = 0;
 
         for(PlayerConfig pc: pPlayers){
             players.add(new Player(pc,viewState,new Pos(0,-1)));
@@ -53,11 +55,11 @@ public class GamePanel extends JPanel {
 
 
         boolean running = true;
-        long tickcounter = 0;
+        tickcounter = 0;
         while(running){
             if(pressedButtons.contains(Integer.valueOf(32)))running = false;
             tickcounter++;
-            tick(tickcounter);
+            tick();
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
@@ -83,13 +85,14 @@ public class GamePanel extends JPanel {
             g.fillOval((int)Math.round(ap.x*viewState.scale),(int)Math.round(ap.y* viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
         }
 
+        //TODO gradient leading worm to others
         g.setColor(Color.RED);
-        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
+        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round( () *(getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
         g.setColor(Color.BLACK);
         g.drawRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
     }
 
-    public void tick(long tnum){
+    public void tick(){
         /*
         System.out.print("Pressed: ");
         for (Integer key : pressedButtons){
@@ -112,10 +115,10 @@ public class GamePanel extends JPanel {
                 pl.mRIGHT();
             }
         }
-        if(apples.size()<3&&tnum%2000==0){
+        if(apples.size()<3&&tickcounter%2000==0){
             apples.add(getFreeSpot());
         }
-        if(tnum%gameStepDelay==0){
+        if(tickcounter%gameStepDelay==0){
             for (Player pl : players){
                 Pos offset = new Pos(0,0);
                 switch (pl.dir){
@@ -140,7 +143,7 @@ public class GamePanel extends JPanel {
         }
 
 
-        if(tnum%20==0){
+        if(tickcounter%20==0){
             repaint();
         }
     }
