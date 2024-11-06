@@ -11,15 +11,15 @@ public class GamePanel extends JPanel {
     ViewState viewState;
     Set<Integer> pressedButtons;
     int gameStepDelay;
-    long tickcounter;
+    long tickCounter;
     Ruleset ruleset;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
         apples = new LinkedList<Pos>();
-        viewState = new ViewState(50d);
+        viewState = new ViewState(45d);
         gameStepDelay = 250;
-        tickcounter = 0;
+        tickCounter = 0;
         ruleset = new Ruleset();
 
         for(PlayerConfig pc: pPlayers){
@@ -57,10 +57,10 @@ public class GamePanel extends JPanel {
 
 
         boolean running = true;
-        tickcounter = 0;
+        tickCounter = 0;
         while(running){
             if(pressedButtons.contains(Integer.valueOf(32)))running = false;
-            tickcounter++;
+            tickCounter++;
             tick();
             try {
                 Thread.sleep(1);
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
 
         //TODO gradient leading worm to others
         g.setColor(Color.RED);
-        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round( (0.04+(double) (tickcounter % gameStepDelay) /gameStepDelay) *(getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
+        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round( (0.04+(double) (tickCounter % gameStepDelay) /gameStepDelay) *(getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
         g.setColor(Color.BLACK);
         g.drawRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
     }
@@ -117,18 +117,28 @@ public class GamePanel extends JPanel {
                 pl.mRIGHT();
             }
         }
-        if(apples.size()<3&&tickcounter%2000==0){
+        if(apples.size()<3&& tickCounter %(gameStepDelay* 4L)==0){
             apples.add(getFreeSpot());
         }
-        if(tickcounter%gameStepDelay==0){
-            for (Player pl : players){
+        if(tickCounter %gameStepDelay==0){
+            for (int i = 0; i< players.size(); i++){
+                Player pl = players.get(i);
                 Pos offset = new Pos(0,0);
+                boolean dead = false;
                 switch (pl.dir){
                     case UP -> offset.y--;
                     case LEFT -> offset.x--;
                     case DOWN -> offset.y++;
                     case RIGHT -> offset.x++;
+                    case NONE -> {
+                        if(tickCounter/gameStepDelay>=10)pl.occupies.removeFirst();
+                        if(pl.occupies.isEmpty()){
+                            players.remove(i);
+                            dead = true;
+                        }
+                    }
                 }
+                if (dead) break;
                 if(canBeMovedTo(pl.occupies.getLast().added(offset))){
                     pl.occupies.add(pl.occupies.getLast().added(offset));
 
@@ -141,6 +151,8 @@ public class GamePanel extends JPanel {
                 }else{
                     pl.dir = Direction.NONE;
                 }
+
+
             }
 
             //sort players by length //TODO later by hp aswell
@@ -157,7 +169,7 @@ public class GamePanel extends JPanel {
         }
 
 
-        if(tickcounter%20==0){
+        if(tickCounter %20==0){
             repaint();
         }
     }
