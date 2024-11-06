@@ -10,7 +10,6 @@ public class GamePanel extends JPanel {
     List<Pos> apples;
     ViewState viewState;
     Set<Integer> pressedButtons;
-    JPanel timeBar;
     int gameStepDelay;
 
     public GamePanel(List<PlayerConfig> pPlayers){
@@ -52,15 +51,6 @@ public class GamePanel extends JPanel {
             }
         });
 
-        timeBar = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                super.paint(g);
-                g.setColor(Color.RED);
-                g.fillRect(0,0,timeBar.getWidth(),timeBar.getHeight());
-            }
-        };
-        this.getParent().add(timeBar);
 
         boolean running = true;
         long tickcounter = 0;
@@ -92,6 +82,9 @@ public class GamePanel extends JPanel {
             g.setColor(Color.RED);
             g.fillOval((int)Math.round(ap.x*viewState.scale),(int)Math.round(ap.y* viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
         }
+
+        g.setColor(Color.RED);
+        g.fillRect(0,getLowerRightCorner().y,getLowerRightCorner().x,getHeight()-getLowerRightCorner().y);
     }
 
     public void tick(long tnum){
@@ -147,7 +140,6 @@ public class GamePanel extends JPanel {
 
         if(tnum%20==0){
             repaint();
-            timeBar.repaint();
         }
     }
 
@@ -174,7 +166,7 @@ public class GamePanel extends JPanel {
 
     private Pos getLowerRightCorner(){
         //System.out.println("pos "+getWidth()/ viewState.scale+" "+getHeight()/ viewState.scale);
-        Pos p = new Pos(getWidth()/ viewState.scale-1, getHeight()/ viewState.scale-1);
+        Pos p = new Pos(getWidth()/ viewState.scale-2, getHeight()/ viewState.scale-2);
         //System.out.println(p);
         return p;
     }
