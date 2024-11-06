@@ -12,6 +12,7 @@ public class GamePanel extends JPanel {
     Set<Integer> pressedButtons;
     int gameStepDelay;
     long tickcounter;
+    Ruleset ruleset;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
@@ -19,6 +20,7 @@ public class GamePanel extends JPanel {
         viewState = new ViewState(50d);
         gameStepDelay = 250;
         tickcounter = 0;
+        ruleset = new Ruleset();
 
         for(PlayerConfig pc: pPlayers){
             players.add(new Player(pc,viewState,new Pos(0,-1)));
