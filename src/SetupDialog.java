@@ -51,19 +51,10 @@ public class SetupDialog extends JDialog {
                             pc.keyUp.getKeyChar(),pc.keyLeft.getKeyChar(),
                             pc.keyDown.getKeyChar(), pc.keyRight.getKeyChar()
                     };
-                        paintChars(g,inputChars,21*inputChars.length*(i%2),(i+1-i%2)*21);
+                        Sprites.paintChars(g,inputChars,21*inputChars.length*(i%2),(i+1-i%2)*21);
                 }
-            }
-            private void paintChar(Graphics g, char pChar, int pX, int pY){
-                g.drawRect(pX,pY,20,20);
-                g.drawString(pChar+"",pX+5,pY+15);
             }
 
-            private void paintChars(Graphics g, char[] pChars, int pX, int pY){
-                for (int i = 0; i < pChars.length; i++) {
-                    paintChar(g,pChars[i],pX+20*i,pY);
-                }
-            }
         };
         this.add(statusDisplay);
 

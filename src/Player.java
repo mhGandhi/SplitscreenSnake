@@ -25,9 +25,13 @@ public class Player{
                     (int)Math.round(viewState.scale),(int)Math.round(viewState.scale));
         }
 
+        g.setColor(Color.WHITE);
+        g.drawRect((int)Math.round((occupies.getLast().x+0.5)* viewState.scale),(int)Math.round((occupies.getLast().y+0.5)*viewState.scale), (int)Math.round(viewState.scale*0.5), (int)Math.round(viewState.scale*0.5));
         g.setColor(Color.BLACK);
-        g.fillOval((int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
+        //g.fillOval((int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
+        Sprites.paintArrow(g,dir,(int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale),(int)Math.round(viewState.scale));
     }
+
     public void mUP(){
         dir = Direction.UP;
     }
