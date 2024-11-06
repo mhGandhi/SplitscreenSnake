@@ -10,11 +10,14 @@ public class GamePanel extends JPanel {
     List<Pos> apples;
     ViewState viewState;
     Set<Integer> pressedButtons;
+    JPanel timeBar;
+    int gameStepDelay;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
         apples = new LinkedList<Pos>();
         viewState = new ViewState(50d);
+        gameStepDelay = 500;
 
         for(PlayerConfig pc: pPlayers){
             players.add(new Player(pc,viewState,new Pos(0,-1)));
@@ -107,7 +110,7 @@ public class GamePanel extends JPanel {
         if(apples.size()<3&&tnum%2000==0){
             apples.add(getFreeSpot());
         }
-        if(tnum%500==0){
+        if(tnum%gameStepDelay==0){
             for (Player pl : players){
                 Pos offset = new Pos(0,0);
                 switch (pl.dir){
