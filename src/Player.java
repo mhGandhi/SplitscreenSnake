@@ -19,7 +19,7 @@ public class Player{
     public void paint(Graphics g){
         g.setColor(playerConfig.color);
         for(Pos pos : occupies){
-            g.fillOval((int)Math.round(pos.x*viewState.scale),(int)Math.round(pos.y*viewState.scale),
+            g.fillRect((int)Math.round(pos.x*viewState.scale),(int)Math.round(pos.y*viewState.scale),
                     (int)Math.round(viewState.scale),(int)Math.round(viewState.scale));
         }
     }

@@ -16,12 +16,13 @@ public class SetupDialog extends JDialog {
         super(frame,title,modal);
         this.playerConfigs = pPls;
         colors = new Stack<Color>();
-        colors.add(Color.GREEN);
+
         colors.add(Color.BLUE);
         colors.add(Color.RED);
         colors.add(Color.CYAN);
         colors.add(Color.MAGENTA);
         colors.add(Color.ORANGE);
+        colors.add(Color.green);
 
         maxPlayers = colors.size();
         this.setFocusable(true);

@@ -7,11 +7,13 @@ import java.util.List;
 
 public class GamePanel extends JPanel {
     List<Player> players;
+    List<Pos> apples;
     ViewState viewState;
     Set<Integer> pressedButtons;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
+        apples = new LinkedList<Pos>();
         viewState = new ViewState(50d);
 
         List<Pos> startingPositions = new LinkedList<Pos>();
@@ -32,6 +34,7 @@ public class GamePanel extends JPanel {
     }
 
     public void start(){
+        System.out.println(new Pos(0,0)+" to "+ getLowerRightCorner());
         this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -70,8 +73,16 @@ public class GamePanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
+        g.setColor(Color.BLACK);
+        g.drawRect(0,0,(int)Math.round((1+getLowerRightCorner().x)* viewState.scale),(int)Math.round((1+getLowerRightCorner().y)* viewState.scale));
+
         for (Player pl : players){
             pl.paint(g);
+        }
+
+        for(Pos ap :apples){
+            g.setColor(Color.RED);
+            g.fillOval((int)Math.round(ap.x*viewState.scale),(int)Math.round(ap.y* viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
         }
     }
 
@@ -111,7 +122,12 @@ public class GamePanel extends JPanel {
                 if(canBeMovedTo(pl.occupies.getLast().added(offset))){
                     pl.occupies.add(pl.occupies.getLast().added(offset));
 
-                    pl.occupies.removeFirst();
+                    if(hasApple(pl.occupies.getLast())){
+                        apples.remove(pl.occupies.getLast());
+                    }else{
+                        pl.occupies.removeFirst();
+                    }
+
                 }
             }
             repaint();
@@ -127,11 +143,26 @@ public class GamePanel extends JPanel {
 
     private boolean isOutOfBounds(Pos pPos){
         if(pPos.x<0||pPos.y<0)return true;
-        if(pPos.x*viewState.scale>getWidth()||pPos.y*viewState.scale>getHeight())return true;
+        if(pPos.x> getLowerRightCorner().x||pPos.y>getLowerRightCorner().y)return true;
         return false;
+    }
+
+    private boolean hasApple(Pos pPos){
+        return apples.contains(pPos);
     }
 
     private boolean canBeMovedTo(Pos pPos){
         return !(isOutOfBounds(pPos)||isOccupied(pPos));
+    }
+
+    private Pos getLowerRightCorner(){
+        //System.out.println("pos "+getWidth()/ viewState.scale+" "+getHeight()/ viewState.scale);
+        Pos p = new Pos(getWidth()/ viewState.scale-1, getHeight()/ viewState.scale-1);
+        //System.out.println(p);
+        return p;
+    }
+
+    private Pos getFreeSpot(){
+        return new Pos(0,0);
     }
 }

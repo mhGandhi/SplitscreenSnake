@@ -7,6 +7,14 @@ public class Pos {
         y = py;
     }
 
+    public Pos(double px,double py){
+        this((int)Math.round(px),(int)Math.round(py));
+    }
+
+    public Pos(float px,float py){
+        this((int)Math.round(px),(int)Math.round(py));
+    }
+
     public Pos added(Pos pPos){
         return new Pos(this.x+pPos.x,this.y+pPos.y);
     }
@@ -18,5 +26,10 @@ public class Pos {
         Pos other = (Pos) obj;
 
         return other.x == this.x && other.y == this.y;
+    }
+
+    @Override
+    public String toString() {
+        return "["+x+"|"+y+"]";
     }
 }
