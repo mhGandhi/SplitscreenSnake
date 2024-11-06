@@ -26,10 +26,10 @@ public class Player{
         }
 
         g.setColor(Color.WHITE);
-        g.drawRect((int)Math.round((occupies.getLast().x+0.5)* viewState.scale),(int)Math.round((occupies.getLast().y+0.5)*viewState.scale), (int)Math.round(viewState.scale*0.5), (int)Math.round(viewState.scale*0.5));
+        g.fillRect((int)Math.round((occupies.getLast().x+0.25)* viewState.scale-1),(int)Math.round((occupies.getLast().y+0.25)*viewState.scale-1), (int)Math.round(viewState.scale*0.5), (int)Math.round(viewState.scale*0.5));
         g.setColor(Color.BLACK);
         //g.fillOval((int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
-        Sprites.paintArrow(g,dir,(int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale),(int)Math.round(viewState.scale));
+        Sprites.paintArrow(g,dir,(int)Math.round((0.5+occupies.getLast().x)* viewState.scale-3),(int)Math.round((0.5+occupies.getLast().y)*viewState.scale+3),(int)Math.round(viewState.scale));
     }
 
     public void mUP(){
