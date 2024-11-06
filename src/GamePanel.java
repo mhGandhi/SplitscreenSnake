@@ -125,6 +125,8 @@ public class GamePanel extends JPanel {
                         pl.occupies.removeFirst();
                     }
 
+                }else{
+                    pl.dir = Direction.NONE;
                 }
             }
         }
