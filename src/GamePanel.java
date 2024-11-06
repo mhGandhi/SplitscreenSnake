@@ -52,6 +52,16 @@ public class GamePanel extends JPanel {
             }
         });
 
+        timeBar = new JPanel(){
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                g.setColor(Color.RED);
+                g.fillRect(0,0,timeBar.getWidth(),timeBar.getHeight());
+            }
+        };
+        this.getParent().add(timeBar);
+
         boolean running = true;
         long tickcounter = 0;
         while(running){
@@ -135,7 +145,10 @@ public class GamePanel extends JPanel {
         }
 
 
-        if(tnum%20==0)repaint();
+        if(tnum%20==0){
+            repaint();
+            timeBar.repaint();
+        }
     }
 
     private boolean isOccupied(Pos pPos){

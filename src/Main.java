@@ -10,6 +10,7 @@ public class Main {
         JFrame frame = new JFrame();
         frame.setSize(1000,1000);
         frame.setTitle("snek");
+        frame.setLayout(new GridLayout(2,1));
 
         List<PlayerConfig> players = new LinkedList<PlayerConfig>();
 
