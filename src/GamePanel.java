@@ -127,8 +127,10 @@ public class GamePanel extends JPanel {
 
                 }
             }
-            repaint();
         }
+
+
+        if(tnum%20==0)repaint();
     }
 
     private boolean isOccupied(Pos pPos){
