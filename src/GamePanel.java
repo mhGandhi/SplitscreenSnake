@@ -17,7 +17,7 @@ public class GamePanel extends JPanel {
         players = new LinkedList<Player>();
         apples = new LinkedList<Pos>();
         viewState = new ViewState(50d);
-        gameStepDelay = 500;
+        gameStepDelay = 250;
         tickcounter = 0;
 
         for(PlayerConfig pc: pPlayers){
@@ -87,7 +87,7 @@ public class GamePanel extends JPanel {
 
         //TODO gradient leading worm to others
         g.setColor(Color.RED);
-        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round( () *(getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
+        g.fillRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round( (0.04+(double) (tickcounter % gameStepDelay) /gameStepDelay) *(getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
         g.setColor(Color.BLACK);
         g.drawRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
     }
@@ -140,6 +140,18 @@ public class GamePanel extends JPanel {
                     pl.dir = Direction.NONE;
                 }
             }
+
+            //sort players by length //TODO later by hp aswell
+            for (int i = 0; i < players.size() - 1; i++) {
+                for (int j = 0; j < players.size() - i - 1; j++) {
+                    if (players.get(j).occupies.size() > players.get(j + 1).occupies.size()) {
+                        Player temp = players.get(j);
+                        players.set(j, players.get(j + 1));
+                        players.set(j + 1, temp);
+                    }
+                }
+            }
+
         }
 
 
