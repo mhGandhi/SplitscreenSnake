@@ -32,6 +32,11 @@ public class Player{
         g.setColor(Color.BLACK);
         //g.fillOval((int)Math.round(occupies.getLast().x* viewState.scale),(int)Math.round(occupies.getLast().y*viewState.scale), (int)Math.round(viewState.scale), (int)Math.round(viewState.scale));
         Sprites.paintArrow(g,dir,(int)Math.round((0.5+occupies.getLast().x)* viewState.scale-3),(int)Math.round((0.5+occupies.getLast().y)*viewState.scale+3),(int)Math.round(viewState.scale));
+
+        if(spawnProtection>0){
+            g.setColor(Color.BLUE);
+            g.drawRect((int)Math.round(-1+(occupies.getLast().x-0.25)* viewState.scale),(int)Math.round(-1+(occupies.getLast().y-0.25)* viewState.scale),(int)Math.round(viewState.scale*1.5),(int)Math.round(viewState.scale*1.5));
+        }
     }
 
     public void mUP(){
