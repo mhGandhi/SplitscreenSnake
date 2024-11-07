@@ -125,21 +125,12 @@ public class GamePanel extends JPanel {
             for (int i = 0; i< players.size(); i++){
                 Player pl = players.get(i);
                 Pos offset = new Pos(0,0);
-                boolean dead = false;
                 switch (pl.dir){
                     case UP -> offset.y--;
                     case LEFT -> offset.x--;
                     case DOWN -> offset.y++;
                     case RIGHT -> offset.x++;
-                    case NONE -> {
-                        if(pl.spawnProtection<=0)pl.occupies.removeFirst();
-                        if(pl.occupies.isEmpty()){
-                            players.remove(i);
-                            dead = true;
-                        }
-                    }
                 }
-                if (dead) break;
                 if(canBeMovedTo(pl.occupies.getLast().added(offset))){
                     pl.occupies.add(pl.occupies.getLast().added(offset));
 
@@ -151,6 +142,11 @@ public class GamePanel extends JPanel {
 
                 }else{
                     pl.dir = Direction.NONE;
+                    if(pl.spawnProtection<=0)pl.occupies.removeFirst();
+                    if(pl.occupies.isEmpty()){
+                        players.remove(i);
+                    }
+                    continue;
                 }
 
                 if(pl.spawnProtection!=0)pl.spawnProtection--;
