@@ -35,6 +35,7 @@ public class GamePanel extends JPanel {
         for(Player p: players){
             p.occupies.clear();
             p.occupies.add(getFreeSpot());
+            p.spawnProtection = 10;
         }
         this.addKeyListener(new KeyAdapter() {
             @Override
@@ -131,7 +132,7 @@ public class GamePanel extends JPanel {
                     case DOWN -> offset.y++;
                     case RIGHT -> offset.x++;
                     case NONE -> {
-                        if(tickCounter/gameStepDelay>=10)pl.occupies.removeFirst();
+                        if(pl.spawnProtection<=0)pl.occupies.removeFirst();
                         if(pl.occupies.isEmpty()){
                             players.remove(i);
                             dead = true;
@@ -152,7 +153,7 @@ public class GamePanel extends JPanel {
                     pl.dir = Direction.NONE;
                 }
 
-
+                if(pl.spawnProtection!=0)pl.spawnProtection--;
             }
 
             //sort players by length //TODO later by hp aswell

@@ -8,11 +8,13 @@ public class Player{
     PlayerConfig playerConfig;
     Direction dir;
     List<Pos> occupies;
+    int spawnProtection;
 
     public Player(PlayerConfig pPlayerConfig, ViewState pViewState, Pos pStart){
         viewState = pViewState;
         playerConfig = pPlayerConfig;
         dir = Direction.NONE;
+        spawnProtection = 0;
         occupies = new LinkedList<Pos>();
         occupies.add(pStart);
 
