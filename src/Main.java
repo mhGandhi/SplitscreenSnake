@@ -33,5 +33,5 @@ public class Main {
         dialog.setLocationRelativeTo(frame);
 
         dialog.setVisible(true);
-    }
+    }//TODO pause button, boost, pretty arrows, streamlined spawn protection
 }
