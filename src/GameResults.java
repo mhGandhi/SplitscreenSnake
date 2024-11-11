@@ -24,6 +24,7 @@ public class GameResults {
     }
 
     public int getTotalScore(Color pCol){
+        totalScores.putIfAbsent(pCol, 0);
         return totalScores.get(pCol);
     }
 
