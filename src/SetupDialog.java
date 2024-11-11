@@ -74,8 +74,9 @@ public class SetupDialog extends JDialog {
         public void keyPressed(KeyEvent e) {
             //System.out.println("["+e.getKeyCode()+"-"+e.getKeyChar()+"]");
             //System.out.println("\t["+e.getKeyCode()+" "+e.getKeyChar()+"]");
-            switch (e.getKeyChar()){
-                case '\n':
+            switch (e.getKeyCode()){
+                case 27://esc
+                case 10://enter
                     break;
                 default:
                     addKey(e);
