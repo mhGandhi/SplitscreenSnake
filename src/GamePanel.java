@@ -13,6 +13,7 @@ public class GamePanel extends JPanel {
     int gameStepDelay;
     long tickCounter;
     Ruleset ruleset;
+    GameResults gameResults;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
@@ -21,6 +22,7 @@ public class GamePanel extends JPanel {
         gameStepDelay = 250;
         tickCounter = 0;
         ruleset = new Ruleset();
+        gameResults = new GameResults();
 
         for(PlayerConfig pc: pPlayers){
             players.add(new Player(pc,viewState,new Pos(0,-1)));
@@ -31,6 +33,7 @@ public class GamePanel extends JPanel {
     }
 
     public GameResults start(){
+
         System.out.println(new Pos(0,0)+" to "+ getLowerRightCorner());
         for(Player p: players){
             p.occupies.clear();
@@ -70,6 +73,7 @@ public class GamePanel extends JPanel {
             }
         }
         System.out.println("END");
+        return gameResults;
     }
 
     @Override
@@ -150,6 +154,7 @@ public class GamePanel extends JPanel {
                 }
 
                 if(pl.spawnProtection!=0)pl.spawnProtection--;
+                gameResults.step(players);
             }
 
             //sort players by length //TODO later by hp aswell
