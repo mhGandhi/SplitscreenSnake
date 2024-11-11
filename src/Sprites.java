@@ -16,9 +16,9 @@ public class Sprites {
         Color orCol = g.getColor();
 
         g.setColor(pBgColor);
-        g.fillRect(pX,pY,pStr.length()*8,20);//todo breite real maken
+        g.fillRect(pX,pY,pStr.length()*6,20);//todo breite real maken
         g.setColor(orCol);
-        g.drawRect(pX,pY, pStr.length()*8,20);
+        g.drawRect(pX,pY, pStr.length()*6,20);
         g.drawString(pStr, pX+1, pY+15);
     }
 

@@ -98,12 +98,14 @@ public class GamePanel extends JPanel {
         g.setColor(Color.BLACK);
         g.drawRect(0,(int)Math.round((getLowerRightCorner().y+1)* viewState.scale),(int)Math.round((getLowerRightCorner().x+1)* viewState.scale),getHeight()-(int)Math.round((getLowerRightCorner().y+1)* viewState.scale));
 
+
         int curry = (int)Math.round((getLowerRightCorner().y+1)* viewState.scale);//yum
         int currx = 10;
         for(Player pl : players){
+            g.setColor(pl.playerConfig.color);
             String str = "Len "+pl.occupies.size()+" Tot "+gameResults.getTotalScore(pl.playerConfig.color);
             Sprites.paintTextbox(g,str,currx,curry, Color.white);
-            currx += str.length()*8;
+            currx += str.length()*6;
         }
     }
 
