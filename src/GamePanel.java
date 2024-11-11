@@ -151,7 +151,7 @@ public class GamePanel extends JPanel {
         if(apples.size()<3&& tickCounter %(gameStepDelay* 4L)==0){
             apples.add(getFreeSpot());
         }
-        if(tickCounter %gameStepDelay==0 && !paused){
+        if(tickCounter % gameStepDelay==0 && !paused){
             for (int i = 0; i< players.size(); i++){
                 Player pl = players.get(i);
                 Pos offset = new Pos(0,0);
@@ -196,7 +196,6 @@ public class GamePanel extends JPanel {
             }
 
         }
-
 
         if(tickCounter %20==0){
             repaint();
