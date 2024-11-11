@@ -17,4 +17,12 @@ public class GameResults {
         }
         lengthOverTime.add(tmp);
     }
+
+    public int getTotalScore(Color pColor) {
+        int tot = 0;
+        for (Map<Color,Integer> m : lengthOverTime){
+            tot += m.get(pColor);
+        }
+        return tot;
+    }
 }
