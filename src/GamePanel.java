@@ -105,7 +105,11 @@ public class GamePanel extends JPanel {
             g.setColor(pl.playerConfig.color);
             String str = "Len "+pl.occupies.size()+" Tot "+gameResults.getTotalScore(pl.playerConfig.color);
             Sprites.paintTextbox(g,str,currx,curry, Color.white);
-            currx += str.length()*6;
+            currx += str.length()*6+5;
+            if(currx > getWidth() - 100){
+                currx = 10;
+                curry += 10;
+            }
         }
     }
 
