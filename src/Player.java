@@ -41,16 +41,7 @@ public class Player{
         }
     }
 
-    public void mUP(){
-        dir = Direction.UP;
-    }
-    public void mLEFT(){
-        dir = Direction.LEFT;
-    }
-    public void mDOWN(){
-        dir = Direction.DOWN;
-    }
-    public void mRIGHT(){
-        dir = Direction.RIGHT;
+    public void setDir(Direction pDir){
+        dir = pDir;
     }
 }

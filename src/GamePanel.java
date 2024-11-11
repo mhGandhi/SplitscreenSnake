@@ -106,16 +106,16 @@ public class GamePanel extends JPanel {
 
         for (Player pl : players){
             if(pressedButtons.contains(pl.playerConfig.keyUp.getKeyCode())){
-                pl.mUP();
+                pl.setDir(Direction.UP);
             }
             if(pressedButtons.contains(pl.playerConfig.keyLeft.getKeyCode())){
-                pl.mLEFT();
+                pl.setDir(Direction.LEFT);
             }
             if(pressedButtons.contains(pl.playerConfig.keyDown.getKeyCode())){
-                pl.mDOWN();
+                pl.setDir(Direction.DOWN);
             }
             if(pressedButtons.contains(pl.playerConfig.keyRight.getKeyCode())){
-                pl.mRIGHT();
+                pl.setDir(Direction.RIGHT);
             }
         }
         if(apples.size()<3&& tickCounter %(gameStepDelay* 4L)==0){
