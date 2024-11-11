@@ -17,7 +17,7 @@ public class GameResults {
         for (Player p : pPlayers){
             tmp.put(p.playerConfig.color, p.occupies.size());
             totalScores.putIfAbsent(p.playerConfig.color, 0);
-            totalScores.put(p.playerConfig.color, p.occupies.size()+totalScores.get(p.playerConfig.color));
+            totalScores.put(p.playerConfig.color, p.occupies.size()+totalScores.get(p.playerConfig.color));//TODO fix
         }
         lengthOverTime.add(tmp);
 
