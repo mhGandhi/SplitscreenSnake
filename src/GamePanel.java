@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {
     long tickCounter;
     Ruleset ruleset;
     GameResults gameResults;
+    boolean paused;
 
     public GamePanel(List<PlayerConfig> pPlayers){
         players = new LinkedList<Player>();
@@ -23,6 +24,7 @@ public class GamePanel extends JPanel {
         tickCounter = 0;
         ruleset = new Ruleset();
         gameResults = new GameResults();
+        paused = false;
 
         for(PlayerConfig pc: pPlayers){
             players.add(new Player(pc,viewState,new Pos(0,-1)));
@@ -111,9 +113,19 @@ public class GamePanel extends JPanel {
                 curry += 10;
             }
         }
+
+        if(paused){
+            g.setColor(Color.black);
+            g.fillRect(getWidth()/2-getWidth()/6,getHeight()/2-getHeight()/6,getWidth()/10,getHeight()/3);
+            g.fillRect(getWidth()/2-getWidth()/6+2*getWidth()/10,getHeight()/2-getHeight()/6,getWidth()/10,getHeight()/3);
+        }
+
     }
 
     public void tick(){
+        if(pressedButtons.contains(Integer.valueOf(27))){
+            paused = !paused;
+        }
         /*
         System.out.print("Pressed: ");
         for (Integer key : pressedButtons){
@@ -139,7 +151,7 @@ public class GamePanel extends JPanel {
         if(apples.size()<3&& tickCounter %(gameStepDelay* 4L)==0){
             apples.add(getFreeSpot());
         }
-        if(tickCounter %gameStepDelay==0){
+        if(tickCounter %gameStepDelay==0 && !paused){
             for (int i = 0; i< players.size(); i++){
                 Player pl = players.get(i);
                 Pos offset = new Pos(0,0);
