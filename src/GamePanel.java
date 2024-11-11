@@ -163,8 +163,9 @@ public class GamePanel extends JPanel {
                     if(pl.spawnProtection<=0)pl.occupies.removeFirst();
                     if(pl.occupies.isEmpty()){
                         players.remove(i);
+                        continue;
                     }
-                    continue;
+
                 }
 
                 if(pl.spawnProtection!=0)pl.spawnProtection--;
