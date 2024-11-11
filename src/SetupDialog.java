@@ -44,6 +44,8 @@ public class SetupDialog extends JDialog {
                     g.fillRect(0,0,this.getWidth(),20);
                 }
 
+                int currx = 0;
+                int curry = 21;
                 for (int i = 0; i < playerConfigs.size(); i++) {
                     PlayerConfig pc = playerConfigs.get(i);
                     g.setColor(pc.color);//TODO loop
@@ -51,7 +53,13 @@ public class SetupDialog extends JDialog {
                             pc.keyUp.getKeyChar(),pc.keyLeft.getKeyChar(),
                             pc.keyDown.getKeyChar(), pc.keyRight.getKeyChar()
                     };
-                        Sprites.paintChars(g,inputChars,21*inputChars.length*(i%2),(i+1-i%2)*21);
+                    Sprites.paintChars(g,inputChars,currx,curry);
+                    currx += inputChars.length*21;
+                    if(currx>getWidth()-inputChars.length*21){
+                        currx = 0;
+                        curry +=21;
+                    }
+                    //Sprites.paintChars(g,inputChars,21*inputChars.length*(i%2),(i+1-i%2)*21);
                 }
             }
 
