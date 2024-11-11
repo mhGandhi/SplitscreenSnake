@@ -30,7 +30,7 @@ public class GamePanel extends JPanel {
         this.setFocusable(true);
     }
 
-    public void start(){
+    public GameResults start(){
         System.out.println(new Pos(0,0)+" to "+ getLowerRightCorner());
         for(Player p: players){
             p.occupies.clear();
