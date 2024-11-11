@@ -12,6 +12,16 @@ public class Sprites {
         }
     }
 
+    public static void paintTextbox(Graphics g, String pStr, int pX, int pY, Color pBgColor){
+        Color orCol = g.getColor();
+
+        g.setColor(pBgColor);
+        g.fillRect(pX,pY,pStr.length()*8,20);//todo breite real maken
+        g.setColor(orCol);
+        g.drawRect(pX,pY, pStr.length()*8,20);
+        g.drawString(pStr, pX+1, pY+15);
+    }
+
     public static void paintArrow(Graphics g, Direction pDir, int pX, int pY, int pScale){
         switch (pDir){
             case UP -> g.drawString("/\\",pX,pY);
